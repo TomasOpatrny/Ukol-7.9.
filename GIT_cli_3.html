@@ -1,0 +1,124 @@
+<h1 id="git-cli---2.část">Git (cli) - 2.část</h1>
+<h2 id="git-staging-area">Git staging area</h2>
+<p>Jednou ze základních funkcí Gitu jsou koncepty prostředí Staging area a Commit. Při práci můžeš přidávat, upravovat a odebírat soubory. Ale kdykoli dosáhneš nějakého milníku nebo dokončíš část práce, přidej soubory do prostředí Staging area. Připravené soubory ve Staging area jsou připraveny k odeslání do úložiště pomocí commitu. Brzy se o commitu dozvíš víc.</br> <img src="git-areas.png" /></br> Pro tuto chvíli jsme dokončili práci s index.html. Můžeš jej tedy přidat do prostředí Staging area:</p>
+<pre><code>git add index.html</code></pre>
+<p>Soubor index.html by měl být přidán do staging area. Ověř si to pomocí příkazu git status:</br></p>
+<pre><code>git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use &quot;git rm --cached ...&quot; to unstage)
+    new file: index.html</code></pre>
+<p>Jestli vidíš stejný výpis, byl soubor index.html přidán do staging area.</p>
+<h2 id="přidání-více-souborů-do-staging-area">Přidání více souborů do staging area</h2>
+<p>Nyní vytvoř soubor readme.md s následujícím obsahem:</p>
+<pre><code># Vítej v Gitu
+
+Toto je cvičný repozitář pro Git tutorial.&lt;/br&gt;
+Tutorial byl vytvořen podle https://www.w3schools.com/git.</code></pre>
+<p>Dále vytvoř soubor bluestyle.css s obsahem:</p>
+<pre><code>body {
+background-color: lightblue;
+}
+
+h1 {
+color: navy;
+margin-left: 20px;
+} </code></pre>
+<p>Pozn: Vysvětli jaké informace soubor bluestyle.css obsahuje a jak se tyto informace projeví v HTML stránce.</p>
+<p>Uprav soubor index.html přidáním odkazu na soubor bluestyle.css.</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Hello World!&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;bluestyle.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;h1&gt;Hello world!&lt;/h1&gt;
+&lt;p&gt;This is the first file in my new Git Repo.&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt; </code></pre>
+<p>Nyní přidej všechny tři soubory do staging area příkazem:</p>
+<pre><code>git add --all</code></pre>
+<p>Použití - -all místo jednotlivých názvů souborů způsobí zachycení všech změn souborů (nových, upravených i smazaných).</p>
+<p>Ověřte stav pomocí příkazu git status:</p>
+<pre><code>git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use &quot;git rm --cached ...&quot; to unstage)
+        new file:   README.md
+        new file:   bluestyle.css
+        new file:   index.html</code></pre>
+<p>Nyní byly všechny tři soubory přidány do staging area.</p>
+<p>Pozn: <strong>git add - -all</strong> můžeme zkrátit pomocí <strong>git add -A</strong></p>
+<h2 id="git-commit">Git commit</h2>
+<p>Když dokončíš práci je třeba potvrdit tento krok pomocí commitu.</p>
+<p>Commity sledují tvůj pokrok a změny během práce. Git registruje každý bod změny jako bod uložení. Je to bod v projektu, ke kterému se můžeš vrátit, pokud najdeš chybu nebo chceš provést změnu zpět.</p>
+<p>Každý bod uložení by měl mít svoji <strong>zprávu</strong> o tom, co se v repozitáři změnilo. Podle těchto zpráv se pak můžeš ty i ostatní snadno orientovat.</p>
+<pre><code>git commit -m &quot;First release of Hello World!&quot;
+[master (root-commit) 221ec6e] First release of Hello World!
+ 3 files changed, 26 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 bluestyle.css
+ create mode 100644 index.html</code></pre>
+<p>Příkaz commit provede potvrzení a parametr -m přidá zprávu.</p>
+<p>Staging area se přenesla do repa se zprávou: “First release of Hello World!”</p>
+<h2 id="git-commit-bez-předchozího-přesunutí-do-staging-area">Git commit bez předchozího přesunutí do staging area</h2>
+<p>Někdy, zvláště když uděláš pouze malé změny, je výhodné sloučit přesunutí do staging area a následný commit do jednoho příkazu commit s parametrem -a.</p>
+<p>Proveď například malou změnu v souboru index.html</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Hello World!&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;bluestyle.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;h1&gt;Hello world!&lt;/h1&gt;
+&lt;p&gt;This is the first file in my new Git Repo.&lt;/p&gt;
+&lt;p&gt;A new line in our file!&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt; </code></pre>
+<p>Nyní ověř stav pomocí git status, ale tentokrát použij parametr –short a dostaneš mnohem kompaktnější výpis.</p>
+<pre><code>git status --short
+ M index.html</code></pre>
+<p>Velké M před názvem souboru znamená modified. Zkrácené výpisy vypadají takto:</p>
+<ul>
+<li>?? - Untracked files</li>
+<li>A - Files added to stage</li>
+<li>M - Modified files</li>
+<li>D - Deleted files</li>
+</ul>
+<p>Nyní proveď commit s parametrem -a, bez předchozího git add:</p>
+<pre><code>git commit -a -m &quot;Updated index.html with a new line&quot;
+[master 09f4acd] Updated index.html with a new line
+ 1 file changed, 1 insertion(+)</code></pre>
+<p><strong>Commit bez předchozího přesunutí do staging area není všeobecně doporučován, protože někdy může vést k nechtěným změnám.</strong></p>
+<h2 id="historie-commitů">Historie commitů</h2>
+<p>pro zobrazení historie commitů tvého repozitáře použij příkaz:</p>
+<pre><code>git log
+commit 09f4acd3f8836b7f6fc44ad9e012f82faf861803 (HEAD -&gt; master)
+Author: w3schools-test 
+Date:   Fri Mar 26 09:35:54 2021 +0100
+
+    Updated index.html with a new line
+
+commit 221ec6e10aeedbfd02b85264087cd9adc18e4b26
+Author: w3schools-test 
+Date:   Fri Mar 26 09:13:07 2021 +0100
+
+    First release of Hello World!</code></pre>
+<h2 id="když-si-v-gitu-nevíš-rady">Když si v Gitu nevíš rady</h2>
+<p>Když si v Gitu nebudeš vědět rady můžeš použít některý z následujících příkazů:</p>
+<pre><code>git  command -help</code></pre>
+<p>tento help vypíše nápovědu k specifikovanému příkazu.</p>
+<pre><code>git help --all</code></pre>
+<p>tento help vypíše všechny dostupné příkazy gitu.</p>

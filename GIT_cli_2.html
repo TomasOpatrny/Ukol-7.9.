@@ -1,0 +1,46 @@
+<h1 id="git-cli---1.část">Git (cli) - 1.část</h1>
+<p>Zjisti jestli máš Git nainstalovaný na tvém počítači</p>
+<pre><code>git --version
+git version 2.34.1</code></pre>
+<p>Pokud je Git nainstalován, měl by zobrazovat něco jako git verze X.Y</p>
+<h2 id="konfigurace-gitu">Konfigurace Gitu</h2>
+<p>Nyní dej Gitu vědět, kdo jsi. To je důležité pro systémy správy verzí, protože pro každý commit Git používá tyto informace:</p>
+<pre><code>git config --global user.name &quot;jmeno&quot;
+git config --global user.email &quot;e-mail&quot;</code></pre>
+<p>Změň uživatelské jméno a e-mailovou adresu na vlastní. Pravděpodobně to budeš chtít použít také při pozdější registraci na GitHub.</p>
+<h2 id="vytvoření-projektu---git-repository-repo">Vytvoření projektu - Git Repository (Repo)</h2>
+<p>Nyní vytvoř novou složku pro svůj projekt a nastav ji jako pracovní adresář:</p>
+<pre><code>mkdir myproject
+cd myproject</code></pre>
+<p>Nyní provedeme inicializaci Gitu:</p>
+<pre><code>git init 
+Initialized empty Git repository in /Users/user/myproject/.git/</code></pre>
+<p>Nyní máš vytvořené Git Repository.</p>
+<h2 id="přidání-nového-souboru-do-git-repository">Přidání nového souboru do Git Repository</h2>
+<p>Tvoje nové repo nyní existuje, ale je prázdné. Nyní do něj přidej soubor index.html s následujícím obsahem. (Vytvoř jej pomocí libovolného textového editoru)</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Hello World!&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;h1&gt;Hello world!&lt;/h1&gt;
+&lt;p&gt;This is the first file in my new Git Repo.&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt; </code></pre>
+<p>Nyní přejdi do terminálu a ověř si, zda soubor index.html v Git Repository existuje.</p>
+<pre><code>ls
+index.html</code></pre>
+<p>Příkaz ls vypíše soubory ve tvém Repu. Jestli je vše v pořádku vypíše se ti index.html, zatím jediný soubor ve tvém Repu.</br> Nyní ověř status Repa a zjisti, jestli je nový soubor jeho součástí.</p>
+<pre><code>git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use &quot;git add ...&quot; to include in what will be committed)
+    index.html
+
+nothing added to commit but untracked files present (use &quot;git add&quot; to track)</code></pre>
